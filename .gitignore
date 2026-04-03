@@ -1,16 +1,18 @@
 # Dependencies
 node_modules/
+dist/
 venv/
+.venv/
 __pycache__/
+*.pyc
 
 # Environment
 .env
 .env.local
 
-# Memory & State
+# Memory & State (runtime artifacts only)
 memory/
-*.json
-!package.json
+.next/
 
 # Logs
 *.log

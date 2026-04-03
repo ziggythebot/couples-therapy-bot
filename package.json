@@ -1,0 +1,16 @@
+{
+  "name": "couples-bot",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "services/*"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev --workspace=apps/session-api",
+    "dev:web": "npm run dev --workspace=apps/intake-web",
+    "build": "npm run build --workspaces --if-present"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
