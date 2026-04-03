@@ -125,6 +125,42 @@ cat ARCHITECTURE.md
 - [EFT vs Gottman: Comparison](https://familytherapybasics.com/blog/are-gottman-method-and-emotionally-focused-therapy-compatible)
 - [Gottman Method Research](https://www.gottman.com/about/research/)
 
+## Contributing
+
+Contributions, feedback, and ideas are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+**Ways to contribute:**
+- 🧠 Share research on therapeutic models
+- 💡 Suggest interview questions or session structures
+- 🔧 Help with implementation (once development begins)
+- 📝 Improve documentation
+
+## Ethical Considerations
+
+**Important**: This system is designed to **supplement, not replace** professional therapy.
+
+- ❌ Not suitable for crisis intervention or severe relationship issues
+- ⚠️ Users should be informed of system limitations
+- 🔒 Privacy and data security are critical (sensitive relationship data)
+- ✅ All therapeutic models must be evidence-based
+
+## Acknowledgments
+
+- **Dan Koe** - [fix-life-in-1-day](https://github.com/evgyur/fix-life-in-1-day) skill architecture inspiration
+- **Dr. John Gottman** - Gottman Method framework
+- **Dr. Sue Johnson** - Emotionally Focused Therapy (EFT)
+- **Tavus AI** - Real-time avatar technology
+
 ## License
 
-MIT
+MIT License - See [LICENSE](LICENSE) for details
+
+---
+
+<div align="center">
+
+**Built with ❤️ for healthier relationships**
+
+[Report Bug](https://github.com/ziggythebot/couples-therapy-bot/issues) • [Request Feature](https://github.com/ziggythebot/couples-therapy-bot/issues) • [Discussions](https://github.com/ziggythebot/couples-therapy-bot/discussions)
+
+</div>
