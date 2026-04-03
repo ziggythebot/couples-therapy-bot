@@ -1,6 +1,24 @@
+<div align="center">
+
 # Couples Therapy Bot
 
-AI-powered couples therapy system combining structured interviews, communication analysis, and real-time sessions. Designed to make high-quality couples therapy accessible—replicating the experience that would cost $200+/hour in cities like London or New York.
+**AI-powered couples therapy combining structured interviews, communication analysis, and real-time sessions**
+
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Planning-yellow)](https://github.com/ziggythebot/couples-therapy-bot)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+
+[Architecture](#architecture) • [Therapeutic Foundation](#therapeutic-foundation) • [Documentation](#documentation) • [Contributing](#contributing)
+
+</div>
+
+---
+
+## Overview
+
+Designed to make high-quality couples therapy accessible—replicating the experience that would cost **$200+/hour** in cities like London or New York.
+
+This system integrates evidence-based therapeutic models (Gottman Method + EFT) with modern AI technology to provide structured relationship support through asynchronous interviews, behavioral analysis, and real-time joint sessions.
 
 ## Therapeutic Foundation
 
@@ -61,9 +79,32 @@ The bot combines both models:
 - **Chat Parsing**: WhatsApp export `.txt` format
 - **Framework**: Based on [fix-life-in-1-day](https://github.com/evgyur/fix-life-in-1-day) skill architecture
 
+## Quick Start
+
+> **Note**: This project is in early planning phase. No implementation yet.
+
+```bash
+# Clone the repository
+git clone https://github.com/ziggythebot/couples-therapy-bot.git
+cd couples-therapy-bot
+
+# Read the architecture
+cat ARCHITECTURE.md
+```
+
 ## Project Status
 
-**Early planning phase.** Internal use first, potential scale later.
+🟡 **Early Planning Phase**
+
+- [x] Architectural design complete
+- [x] Therapeutic models researched (Gottman + EFT)
+- [x] Technical stack defined (Claude + Tavus)
+- [ ] Interview structure implementation
+- [ ] WhatsApp parser development
+- [ ] Tavus integration
+- [ ] Memory system implementation
+
+**Roadmap**: Internal use first, potential scale later
 
 ## Documentation
 
