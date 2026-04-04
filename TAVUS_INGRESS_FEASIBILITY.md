@@ -105,7 +105,7 @@ On callback:
    - `system.shutdown` -> mark session ended with reason
 
 ## Step D: Post-processing pipeline
-- Run risk scan
+- Run analysis pipeline (metrics + brief, or your chosen post-steps)
 - Extract interview fields
 - Write:
   - `memory/partner-*/session-*.md`
@@ -139,7 +139,7 @@ On callback:
 
 2. Guardrails are not absolute guarantees
 - Tavus explicitly frames guardrails as guidance and part of broader safety strategy.
-- Keep your own downstream safety scanner in pipeline.
+- Plan any additional downstream checks before production or regulated use.
 
 3. Custom LLM path adds latency/ops complexity
 - Works, but PoC speed favors Tavus-hosted model first.

@@ -22,13 +22,13 @@ Outputs:
   - sessions
   - chat artifacts
   - generated insights
-- Add risk policy (crisis/abuse/self-harm handling)
+- Document product boundaries and disclaimers (`SAFETY_POLICY.md`)
 
 Exit criteria:
 - One canonical architecture doc
 - One canonical interview spec
 - One canonical Tavus note
-- Safety policy documented
+- Boundaries / disclaimer doc in place for beta
 
 ### Phase 1: Pattern Discovery PoC (2-3 weeks)
 - Intake collection (text or Tavus transcript ingest)
@@ -79,8 +79,8 @@ Exit criteria:
 - Partner-rated fairness (both felt accurately represented)
 - 7-day experiment adherence
 
-### Risk Metrics
-- High-risk detection precision/recall (manual review)
+### Risk & oversight metrics (post-beta / Phase 3+)
+- High-risk detection precision/recall (manual review), once automated tooling exists
 - Escalation correctness
 - Incidents per 100 sessions
 
@@ -94,13 +94,13 @@ Strengths:
 Weaknesses:
 - Documentation duplication and drift (`-` vs `_` filenames)
 - No canonical implementation spec (APIs, modules, contracts)
-- Safety/compliance not operationalized (only principles)
+- Automated safety blocking not in the beta pipeline (policy is boundaries-only)
 - No test plan or evaluation rubric
 - No milestone ownership or delivery sequencing
 
 ## Immediate Next Actions
 1. Canonicalize duplicate docs.
 2. Add implementation spec (`IMPLEMENTATION_PLAN.md`) with concrete modules and interfaces.
-3. Add `SAFETY_POLICY.md` with stop/escalation logic.
+3. Keep `SAFETY_POLICY.md` aligned with beta scope (boundaries and copy, not automated blocking).
 4. Scaffold parser + brief generator pipeline.
 

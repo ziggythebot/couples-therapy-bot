@@ -12,7 +12,7 @@
     "build": "npm run build --workspaces --if-present",
     "poc": "tsx src/pipeline/runPoc.ts",
     "parse:chat": "tsx src/whatsapp/parseWhatsapp.ts",
-    "risk:scan": "tsx -e \"import('./src/safety/riskScan.js')\"",
+    "test": "tsx --test src/__tests__/*.test.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

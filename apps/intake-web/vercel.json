@@ -1,0 +1,10 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "env": {
+    "SESSION_API_URL": {
+      "description": "URL of the running session-api service (e.g. https://session-api.up.railway.app)"
+    }
+  }
+}
