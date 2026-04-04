@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { AccessToken, RoomServiceClient } from "livekit-server-sdk";
+import { AccessToken, EgressClient, RoomServiceClient, EncodedFileType } from "livekit-server-sdk";
 import { nanoid } from "nanoid";
 import { z } from "zod";
 import { config } from "../config.js";
-import { createSession, endSession } from "../sessions.js";
+import { createSession, endSession, setEgressId } from "../sessions.js";
 
 export const intakeRouter = Router();
 
@@ -67,6 +67,34 @@ intakeRouter.post("/session", async (req, res) => {
     recordingStatus: "pending",
     transcriptStatus: "pending",
   });
+
+  // Start room-composite egress recording if S3 is configured
+  if (config.s3.bucket) {
+    try {
+      const egressClient = new EgressClient(
+        config.livekit.url,
+        config.livekit.apiKey,
+        config.livekit.apiSecret
+      );
+      const s3Key = `recordings/${couple_id}/${partner_id}/${sessionId}.mp4`;
+      const egress = await egressClient.startRoomCompositeEgress(roomName, {
+        file: {
+          fileType: EncodedFileType.MP4,
+          filepath: s3Key,
+          s3: {
+            accessKey: config.s3.accessKey,
+            secret: config.s3.secretKey,
+            bucket: config.s3.bucket,
+            region: config.s3.region,
+          },
+        },
+      });
+      setEgressId(sessionId, egress.egressId);
+    } catch (err) {
+      // Non-fatal — session continues without recording
+      console.warn("Egress start failed (recording skipped):", err);
+    }
+  }
 
   res.json({
     session_id: sessionId,

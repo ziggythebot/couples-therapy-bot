@@ -12,4 +12,11 @@ export const config = {
     apiSecret: required("LIVEKIT_API_SECRET"),
   },
   sessionTokenTtlSeconds: Number(process.env.SESSION_TOKEN_TTL_SECONDS ?? 3600),
+  // Optional S3 — recording is skipped if bucket is not set
+  s3: {
+    bucket: process.env.S3_BUCKET ?? "",
+    region: process.env.S3_REGION ?? "us-east-1",
+    accessKey: process.env.S3_ACCESS_KEY ?? "",
+    secretKey: process.env.S3_SECRET_KEY ?? "",
+  },
 };

@@ -8,6 +8,8 @@ export interface SessionRecord {
   endedAt?: string;
   recordingStatus: "pending" | "processing" | "done";
   transcriptStatus: "pending" | "available";
+  egressId?: string;
+  recordingRef?: string; // S3 key or egress output path
 }
 
 const store = new Map<string, SessionRecord>();
@@ -25,6 +27,11 @@ export function endSession(sessionId: string): SessionRecord | undefined {
   if (!session) return undefined;
   session.endedAt = new Date().toISOString();
   session.transcriptStatus = "available";
-  session.recordingStatus = "processing";
+  session.recordingStatus = session.egressId ? "processing" : "pending";
   return session;
+}
+
+export function setEgressId(sessionId: string, egressId: string): void {
+  const session = store.get(sessionId);
+  if (session) session.egressId = egressId;
 }

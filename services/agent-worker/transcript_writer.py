@@ -52,8 +52,9 @@ class TranscriptWriter:
         self.md_path.write_text("\n".join(lines))
 
     def finalize(self) -> dict:
-        """Write final artifact and return summary metadata."""
+        """Write final artifact, update intake index, and return summary metadata."""
         self._flush()
+        self._update_intake_index()
         return {
             "session_id": self.session_id,
             "partner_id": self.partner_id,
@@ -61,3 +62,32 @@ class TranscriptWriter:
             "json_path": str(self.json_path),
             "md_path": str(self.md_path),
         }
+
+    def _update_intake_index(self) -> None:
+        """Upsert this session into memory/relationship/intake-index.json."""
+        import json as _json
+
+        index_path = Path(self.json_path.parent.parent) / "relationship" / "intake-index.json"
+        index_path.parent.mkdir(parents=True, exist_ok=True)
+
+        index: dict = {}
+        if index_path.exists():
+            try:
+                index = _json.loads(index_path.read_text())
+            except Exception:
+                index = {}
+
+        sessions: list = index.get("sessions", [])
+        # Replace existing entry for this session or append
+        sessions = [s for s in sessions if s.get("session_id") != self.session_id]
+        sessions.append({
+            "session_id": self.session_id,
+            "partner_id": self.partner_id,
+            "completed_at": datetime.now(timezone.utc).isoformat(),
+            "turn_count": len(self.turns),
+            "transcript_json": str(self.json_path),
+            "transcript_md": str(self.md_path),
+        })
+        index["sessions"] = sessions
+        index["last_updated"] = datetime.now(timezone.utc).isoformat()
+        index_path.write_text(_json.dumps(index, indent=2))

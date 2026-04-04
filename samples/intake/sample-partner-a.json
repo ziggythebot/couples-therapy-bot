@@ -1,0 +1,18 @@
+{
+  "session_id": "ses_sample001",
+  "partner_id": "partner-a",
+  "source": "text",
+  "started_at": "2026-01-10T10:00:00Z",
+  "turns": [
+    { "speaker": "agent", "text": "Can you tell me a little about yourself and how long you and your partner have been together?", "phase": "intro_and_consent" },
+    { "speaker": "partner", "text": "We've been together for four years, living together for two. I'm Alex. Things have been really good overall but lately I feel like we're drifting a bit.", "phase": "intro_and_consent" },
+    { "speaker": "agent", "text": "What brought you to seek support at this time?", "phase": "intro_and_consent" },
+    { "speaker": "partner", "text": "We've been arguing more. Small things mostly but they're adding up. I want to get ahead of it before it becomes something bigger.", "phase": "intro_and_consent" },
+    { "speaker": "agent", "text": "How would you describe the strengths of your relationship?", "phase": "relationship_baseline" },
+    { "speaker": "partner", "text": "We're really good at making each other laugh. We have the same values about the important things — family, honesty. When things are good, they're genuinely great.", "phase": "relationship_baseline" },
+    { "speaker": "agent", "text": "Can you describe a recent conflict that felt significant?", "phase": "conflict_and_triggers" },
+    { "speaker": "partner", "text": "Jordan went quiet for a whole evening after I brought up us not spending enough time together. Instead of talking it turned into this cold silence that lasted days. It made me feel completely shut out.", "phase": "conflict_and_triggers" },
+    { "speaker": "agent", "text": "What are your hopes for this process?", "phase": "reflection_close" },
+    { "speaker": "partner", "text": "I want us to learn to actually talk when something's wrong instead of retreating. I love Jordan. I just want us to feel close again.", "phase": "reflection_close" }
+  ]
+}
