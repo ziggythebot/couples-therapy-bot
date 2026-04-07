@@ -2,13 +2,12 @@
 
 # Couples Therapy Bot
 
-**AI-powered couples therapy combining structured interviews, communication analysis, and real-time sessions**
+**AI-assisted relationship pattern discovery — beta PoC today, structured interviews and live sessions on the roadmap**
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Planning-yellow)](https://github.com/ziggythebot/couples-therapy-bot)
+[![Status](https://img.shields.io/badge/Status-Beta%20PoC-blue)](https://github.com/ziggythebot/couples-therapy-bot)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-[Architecture](#architecture) • [Therapeutic Foundation](#therapeutic-foundation) • [Documentation](#documentation) • [Contributing](#contributing)
+[What’s in the repo](#whats-in-the-repo-now) • [Quick start](#quick-start) • [Documentation](#documentation) • [Contributing](#contributing)
 
 </div>
 
@@ -16,151 +15,147 @@
 
 ## Overview
 
-Designed to make high-quality couples therapy accessible—replicating the experience that would cost **$200+/hour** in cities like London or New York.
+Long-term vision: make thoughtful relationship support more accessible—grounded in **Gottman Method** and **EFT**-style ideas (communication patterns, attachment, repair), delivered through structured interviews, behavioral signals from chat, and eventually real-time joint sessions.
 
-This system integrates evidence-based therapeutic models (Gottman Method + EFT) with modern AI technology to provide structured relationship support through asynchronous interviews, behavioral analysis, and real-time joint sessions.
+**Today’s focus** is *relationship pattern discovery*: ingest interviews and/or WhatsApp exports, compute deterministic metrics, and generate a readable **`relationship-brief.md`** via an LLM. This is **not** a replacement for licensed therapy; see [SAFETY_POLICY.md](SAFETY_POLICY.md) for beta boundaries and disclaimers.
 
-## Therapeutic Foundation
+## Therapeutic foundation (design intent)
 
-This system integrates evidence-based therapeutic models:
+The documentation and prompts lean on:
 
-### **Gottman Method** (Behavioral & Communication Focus)
-- **Four Horsemen Analysis**: Identifying criticism, contempt, defensiveness, stonewalling in communication
-- **Sound Relationship House**: Building friendship, managing conflict, creating shared meaning
-- **Conflict Management**: Distinguishing solvable vs perpetual problems
-- **Repair Attempts**: Recognizing and strengthening de-escalation patterns
-- **Behavioral Research**: 40+ years of empirical data on what predicts relationship success/failure
+- **Gottman-style** signals: conflict/repair language, balance, escalation cues in text
+- **EFT-style** framing: attachment, cycles, emotional accessibility (more fully in planned interview flows)
 
-### **Emotionally Focused Therapy (EFT)** (Attachment & Emotion Focus)
-- **Attachment Theory**: Understanding attachment styles, bonding patterns, security needs
-- **Emotional Accessibility**: Helping partners express vulnerable emotions beneath conflict
-- **Negative Cycles**: Mapping pursue-withdraw, attack-defend patterns
-- **Reprocessing Interactions**: Creating new emotional experiences in real-time
-- **Trauma-Informed**: Addressing past wounds affecting current relationship dynamics
+Integrated live “therapy bot” behavior (Tavus avatar, joint sessions) remains **documented and staged**, not production-complete.
 
-### **Integrated Approach**
-The bot combines both models:
-- **Gottman's structure** for skill-building, assessment, and conflict analysis
-- **EFT's depth** for emotional safety, attachment repair, and vulnerability work
-- WhatsApp chat analysis provides behavioral data (Gottman-style)
-- Individual interviews explore attachment patterns (EFT-style)
-- Live sessions blend skill coaching with emotional processing
+## Architecture (target flow)
 
-## Architecture
+### Four-phase product story
 
-### Four-Phase Flow
+1. **Individual interviews (async)** — structured prompts per partner (`fix-life-in-1-day`-inspired session shape in the specs)
+2. **WhatsApp chat analysis** — export parse + metrics + themes for the brief
+3. **Follow-up interview** — targeted questions informed by chat (spec’d; not fully wired in the PoC CLI)
+4. **Live joint session** — Tavus + LLM + transcripts (roadmap; see Tavus docs below)
 
-1. **Individual Interviews (Async)**
-   - Partner A: Psychological profile, attachment style, triggers, childhood patterns
-   - Partner B: Same structured interview
-   - Based on "fix-life-in-1-day" session structure
+### What’s in the repo *now*
 
-2. **WhatsApp Chat Analysis**
-   - Ingest exported WhatsApp chat history
-   - Analyze communication patterns, conflict dynamics, repair attempts
-   - Identify escalation triggers, avoidance patterns, emotional regulation
+| Area | Status |
+|------|--------|
+| **PoC CLI pipeline** (`npm run poc`) — intake + WhatsApp → metrics → `relationship-brief.md` | Implemented |
+| **WhatsApp parser + metrics** | Implemented |
+| **LLM brief** (OpenAI or Anthropic via env) | Implemented |
+| **`apps/intake-web`** (Next.js) | Scaffold for intake UI |
+| **`apps/session-api`** | API scaffold for sessions |
+| **Tavus / LiveKit real-time** | Design docs only |
+| **Full interview engine + follow-up generator** | Partially specified in markdown |
 
-3. **Follow-up Interview**
-   - Targeted questions based on chat analysis
-   - Address gaps between self-perception and actual behavior
-   - Confront blind spots identified in communication patterns
+## Tech stack
 
-4. **Live Joint Session (Real-time)**
-   - 15-30 minute time-boxed discussion
-   - Tavus AI avatar for visual presence
-   - Claude backend with full context (profiles + chat analysis + follow-ups)
-   - Session transcripts saved to memory
+- **Runtime:** Node.js 20+, TypeScript  
+- **Monorepo:** npm workspaces (`apps/*`)  
+- **LLM:** OpenAI or Anthropic SDKs (configurable)  
+- **PoC I/O:** local filesystem under `memory/` (default)  
+- **Chat input:** WhatsApp `.txt` export  
 
-## Tech Stack
-
-- **LLM Backend**: Claude (via Anthropic API)
-- **Avatar**: Tavus AI (supports custom LLM integration)
-- **Memory**: Session-based persistence (partner profiles, chat analysis, transcripts)
-- **Chat Parsing**: WhatsApp export `.txt` format
-- **Framework**: Based on [fix-life-in-1-day](https://github.com/evgyur/fix-life-in-1-day) skill architecture
-
-## Quick Start
-
-> **Note**: This project is in early planning phase. No implementation yet.
+## Quick start
 
 ```bash
-# Clone the repository
 git clone https://github.com/ziggythebot/couples-therapy-bot.git
 cd couples-therapy-bot
-
-# Read the architecture
-cat ARCHITECTURE.md
+npm install
 ```
 
-## Project Status
+Set API credentials (brief generation needs at least one provider):
 
-🟡 **Early Planning Phase**
+```bash
+# Example: OpenAI
+export OPENAI_API_KEY=sk-...
+export LLM_PROVIDER=openai
+# Or Anthropic:
+# export ANTHROPIC_API_KEY=...
+# export LLM_PROVIDER=anthropic
+```
 
-- [x] Architectural design complete
-- [x] Therapeutic models researched (Gottman + EFT)
-- [x] Technical stack defined (Claude + Tavus)
-- [ ] Interview structure implementation
-- [ ] WhatsApp parser development
-- [ ] Tavus integration
-- [ ] Memory system implementation
+Run the PoC on the sample chat (writes under `./memory/relationship/` by default):
 
-**Roadmap**: Internal use first, potential scale later
+```bash
+npm run poc -- --chat samples/whatsapp/sample-chat.txt
+```
+
+Optional: add intake transcripts and partner display names:
+
+```bash
+npm run poc -- \
+  --intakeA samples/intake/sample-partner-a.json \
+  --chat samples/whatsapp/sample-chat.txt \
+  --partnerAName "Alex" \
+  --partnerBName "Sam"
+```
+
+Other scripts: `npm run parse:chat`, `npm run typecheck`, `npm run dev:web` / `npm run dev:api` for the app workspaces.
+
+## Project status
+
+🟦 **Beta PoC** — core analysis path runs end-to-end; product packaging and real-time layers are still in progress.
+
+- [x] PoC pipeline (intake + WhatsApp + metrics + brief)
+- [x] WhatsApp parser (see [WHATSAPP_PARSER.md](WHATSAPP_PARSER.md))
+- [x] Therapeutic framing and architecture docs
+- [ ] Intake web + session API fully productized
+- [ ] Tavus / real-time session integration
+- [ ] Full interview engine + automated follow-up pass
+
+Roadmap detail: [POC_ROADMAP.md](POC_ROADMAP.md).
 
 ## Documentation
 
-- **[ARCHITECTURE.md](ARCHITECTURE.md)** - System design, components, memory structure, flow diagrams
-- **[TAVUS-INTEGRATION.md](TAVUS-INTEGRATION.md)** - Tavus AI avatar + Claude backend integration
-- **[INTERVIEW-STRUCTURE.md](INTERVIEW-STRUCTURE.md)** - Session templates, state management, question flows
-- **[WHATSAPP-ANALYSIS.md](WHATSAPP-ANALYSIS.md)** - Chat parsing strategy, analysis dimensions
+| Doc | Purpose |
+|-----|---------|
+| [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) | PoC modules, pipeline, CLI |
+| [POC_ROADMAP.md](POC_ROADMAP.md) | Phases from pattern discovery to oversight |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | System design and memory layout |
+| [SAFETY_POLICY.md](SAFETY_POLICY.md) | Beta boundaries and disclaimers |
+| [INTERVIEW-STRUCTURE.md](INTERVIEW-STRUCTURE.md) | Interview/session structure (spec) |
+| [WHATSAPP-ANALYSIS.md](WHATSAPP-ANALYSIS.md) | Chat analysis dimensions |
+| [TAVUS-INTEGRATION.md](TAVUS-INTEGRATION.md) | Tavus + LLM integration notes |
 
 ## References
 
 ### Technical
-- [Tavus LLM Integration Docs](https://docs.tavus.io/sections/conversational-video-interface/persona/llm)
-- [fix-life-in-1-day Skill](https://github.com/evgyur/fix-life-in-1-day) (interview structure inspiration)
-- [Building Real-Time AI with Pipecat and Tavus](https://www.tavus.io/post/open-sourcing-ai-innovation-building-real-time-ai-interactions-with-pipecat-and-tavus)
 
-### Therapeutic Models
-- [Gottman Method & EFT Integration](https://www.gottman.com/blog/integrate-gottman-method-couples-therapy/)
-- [EFT vs Gottman: Comparison](https://familytherapybasics.com/blog/are-gottman-method-and-emotionally-focused-therapy-compatible)
-- [Gottman Method Research](https://www.gottman.com/about/research/)
+- [Tavus LLM integration](https://docs.tavus.io/sections/conversational-video-interface/persona/llm)
+- [fix-life-in-1-day](https://github.com/evgyur/fix-life-in-1-day) (interview structure inspiration)
+
+### Therapeutic models
+
+- [Gottman Method & EFT](https://www.gottman.com/blog/integrate-gottman-method-couples-therapy/)
+- [Gottman research](https://www.gottman.com/about/research/)
 
 ## Contributing
 
-Contributions, feedback, and ideas are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+See [CONTRIBUTING.md](CONTRIBUTING.md). Research, interview copy, parser edge cases, and documentation cleanup are especially welcome.
 
-**Ways to contribute:**
-- 🧠 Share research on therapeutic models
-- 💡 Suggest interview questions or session structures
-- 🔧 Help with implementation (once development begins)
-- 📝 Improve documentation
+## Ethical considerations
 
-## Ethical Considerations
-
-**Important**: This system is designed to **supplement, not replace** professional therapy.
-
-- ❌ Not suitable for crisis intervention or severe relationship issues
-- ⚠️ Users should be informed of system limitations
-- 🔒 Privacy and data security are critical (sensitive relationship data)
-- ✅ All therapeutic models must be evidence-based
+This project is intended to **supplement**, not replace, professional care. It is **not** appropriate as a crisis or safety system. Read [SAFETY_POLICY.md](SAFETY_POLICY.md). Treat relationship data as sensitive.
 
 ## Acknowledgments
 
-- **Dan Koe** - [fix-life-in-1-day](https://github.com/evgyur/fix-life-in-1-day) skill architecture inspiration
-- **Dr. John Gottman** - Gottman Method framework
-- **Dr. Sue Johnson** - Emotionally Focused Therapy (EFT)
-- **Tavus AI** - Real-time avatar technology
+- **Dan Koe** — [fix-life-in-1-day](https://github.com/evgyur/fix-life-in-1-day) architecture inspiration  
+- **Dr. John Gottman** — Gottman Method  
+- **Dr. Sue Johnson** — EFT  
+- **Tavus** — avatar / CVI docs for future real-time work  
 
 ## License
 
-MIT License - See [LICENSE](LICENSE) for details
+MIT License — add a `LICENSE` file at the repository root when publishing if one is not yet present.
 
 ---
 
 <div align="center">
 
-**Built with ❤️ for healthier relationships**
+**Built with care for clearer communication**
 
-[Report Bug](https://github.com/ziggythebot/couples-therapy-bot/issues) • [Request Feature](https://github.com/ziggythebot/couples-therapy-bot/issues) • [Discussions](https://github.com/ziggythebot/couples-therapy-bot/discussions)
+[Report an issue](https://github.com/ziggythebot/couples-therapy-bot/issues)
 
 </div>
